@@ -95,8 +95,8 @@
                     </el-collapse-item>
                 </el-collapse>
             </el-tab-pane>
-            <el-tab-pane label="设备记录">
-                <HistoryRecord></HistoryRecord>>
+            <el-tab-pane label="操作记录">
+                <HistoryRecord></HistoryRecord>
             </el-tab-pane>
             <el-tab-pane label="***"></el-tab-pane>
 

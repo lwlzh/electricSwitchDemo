@@ -1,12 +1,15 @@
 import axios from "axios"
-const host = "http://localhost:8088/"
+const host = "http://localhost:8088"
 export default{
     test(){
         console.log(host);
     },
-    async closeSwtich(address, ip, port){//分闸
+    async closeSwtich(ip, port, address){//分闸
         const obj = await axios({
             url:host+'/switch/api/v1/closeSwitch',
+            headers:{
+                'Content-Type': 'application/json'
+            },
             method:'post',
             data:JSON.stringify({
                 "address":address,
@@ -14,11 +17,14 @@ export default{
                 "port":port
             })
         })
-        return obj;
+        return JSON.parse(obj);
     },
-    async openSwitch(address, ip, port){//合闸
+    async openSwitch(ip, port, address){//合闸
         const obj = await axios({
             url:host+'/switch/api/v1/openSwitch',
+            headers:{
+                'Content-Type': 'application/json'
+            },
             method:'post',
             data:JSON.stringify({
                 "address":address,
@@ -26,11 +32,14 @@ export default{
                 "port":port
             })
         })
-        return obj;
+        return JSON.parse(obj);
     },
-    async queryOrdinarySwitchData(address, ip, port){//查询普通微断数据
+    async queryOrdinarySwitchData(ip, port, address){//查询普通微断数据
         const obj = await axios({
             url:host+'/switch/api/v1/queryOrdinarySwitchData',
+            headers:{
+                'Content-Type': 'application/json'
+            },
             method:'post',
             data:JSON.stringify({
                 "address":address,
@@ -38,11 +47,14 @@ export default{
                 "port":port
             })
         })
-        return obj;
+        return JSON.parse(obj);
     },
-    async queryThreePhaseSwitchData(address, ip, port){//查询三相微端数据
+    async queryThreePhaseSwitchData(ip, port, address){//查询三相微端数据
         const obj = await axios({
             url:host+'/switch/api/v1/queryThreePhaseSwitchData',
+            headers:{
+                'Content-Type': 'application/json'
+            },
             method:'post',
             data:JSON.stringify({
                 "address":address,
@@ -50,11 +62,14 @@ export default{
                 "port":port
             })
         })
-        return obj;
+        return JSON.parse(obj);
     },
-    async querySwitchHistoryData(address, startTime, endTime, ip, port){//查询历史接口数据
+    async querySwitchHistoryData( ip, port, address, startTime, endTime){//查询历史接口数据
         const obj = await axios({
             url:host+'/switch/api/v1/queryThreePhaseSwitchData',
+            headers:{
+                'Content-Type': 'application/json'
+            },
             method:'post',
             data:JSON.stringify({
                 "address":address,
@@ -64,7 +79,7 @@ export default{
                 "endTime":endTime
             })
         })
-        return obj;
+        return JSON.parse(obj);
     }
     
 
