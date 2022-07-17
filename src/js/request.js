@@ -5,7 +5,7 @@ export default{
         console.log(host);
     },
     async closeSwtich(ip, port, address){//分闸
-        const obj = await axios({
+        const res = await axios({
             url:host+'/switch/api/v1/closeSwitch',
             headers:{
                 'Content-Type': 'application/json'
@@ -17,10 +17,10 @@ export default{
                 "port":port
             })
         })
-        return JSON.parse(obj);
+        return res.data;
     },
     async openSwitch(ip, port, address){//合闸
-        const obj = await axios({
+        const res = await axios({
             url:host+'/switch/api/v1/openSwitch',
             headers:{
                 'Content-Type': 'application/json'
@@ -32,10 +32,10 @@ export default{
                 "port":port
             })
         })
-        return JSON.parse(obj);
+        return res.data;
     },
     async queryOrdinarySwitchData(ip, port, address){//查询普通微断数据
-        const obj = await axios({
+        const res = await axios({
             url:host+'/switch/api/v1/queryOrdinarySwitchData',
             headers:{
                 'Content-Type': 'application/json'
@@ -47,10 +47,10 @@ export default{
                 "port":port
             })
         })
-        return JSON.parse(obj);
+        return res.data;
     },
     async queryThreePhaseSwitchData(ip, port, address){//查询三相微端数据
-        const obj = await axios({
+        const res = await axios({
             url:host+'/switch/api/v1/queryThreePhaseSwitchData',
             headers:{
                 'Content-Type': 'application/json'
@@ -62,10 +62,10 @@ export default{
                 "port":port
             })
         })
-        return JSON.parse(obj);
+        return res.data;
     },
     async querySwitchHistoryData( ip, port, address, startTime, endTime){//查询历史接口数据
-        const obj = await axios({
+        await axios({
             url:host+'/switch/api/v1/queryThreePhaseSwitchData',
             headers:{
                 'Content-Type': 'application/json'
@@ -78,8 +78,12 @@ export default{
                 "startTime":startTime,
                 "endTime":endTime
             })
-        })
-        return JSON.parse(obj);
+        }).then(function(res){
+               // data = res;
+                return res.data;
+            })
+     //   return JSON.parse(obj.response);
+        // return res.data;
     }
     
 

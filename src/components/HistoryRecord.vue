@@ -38,7 +38,9 @@
             background
             layout="prev, pager, next"
             @current-change="currentChange"
-            :total="10">
+            :total="total"
+            :page-size="pageSize"
+            >
         </el-pagination>
     </div>
 </template>
@@ -54,7 +56,7 @@ export default {
             queryTime:'',
             timeFormat:"yyyy-MM-dd",
             unlinkPanels:true,
-            switchData:[],
+            historyData:[],
             tableData: [{
             ip: '192.168.0.7',
             address: '01',
@@ -71,7 +73,9 @@ export default {
             remark:'无',
             time:'2022-07-11'
           }
-          ]
+          ],
+          total:0,
+          pageSize:20
         }
     },
     methods:{
@@ -80,21 +84,32 @@ export default {
                 alert("请输入日期！");
                 return;
             }
-
-            console.log(this.queryTime[0]);
-            const obj = Net.querySwitchHistoryData('192.168.0.7','01','01',this.queryTime[0],this.queryTime[1]);
-            console.log(obj)
-            const obj2 = Net.closeSwtich('192.168.0.7','01','01')
-            console.log(obj2)
-            
+            const data = Net.querySwitchHistoryData('192.168.0.7','01','01',this.queryTime[0],this.queryTime[1]);
+            data===data;
+           // this.historyData = data;
+            this.historyData=   [{ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'}];
+            for(var i = 1;i<=21;i++){
+                this.historyData.push({ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'});
+            }
+            this.total = this.historyData.length;
+            if(this.total<=this.pageSize){
+                this.tableData=this.historyData;
+            }else {
+                this.tableData=(this.historyData).slice(0,this.pageSize);
+            }
         },
         reset(){
             this.queryTime='';
             this.tableData=[];
-            this.switchData=[];
+            this.historyData=[];
+            this.total=0;
         },
-        currentChange(){
-            console.log('hehe')
+        currentChange(e){
+            if(e*this.pageSize<=this.total){
+                this.tableData=this.historyData.slice(this.pageSize*(e-1), this.pageSize*e);
+            }else {
+                this.tableData=this.historyData.slice(this.pageSize*(e-1));
+            }
         }
     }
 }
