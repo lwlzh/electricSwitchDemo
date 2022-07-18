@@ -84,19 +84,25 @@ export default {
                 alert("请输入日期！");
                 return;
             }
-            const data = Net.querySwitchHistoryData('192.168.0.7','01','01',this.queryTime[0],this.queryTime[1]);
-            data===data;
-           // this.historyData = data;
-            this.historyData=   [{ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'}];
-            for(var i = 1;i<=21;i++){
-                this.historyData.push({ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'});
-            }
-            this.total = this.historyData.length;
-            if(this.total<=this.pageSize){
-                this.tableData=this.historyData;
-            }else {
-                this.tableData=(this.historyData).slice(0,this.pageSize);
-            }
+            Net.querySwitchHistoryData('192.168.0.7','01','01',this.queryTime[0],this.queryTime[1])
+                .then((res)=>{
+                    //解析数据
+                     console.log(res.data);
+                    // this.historyData = res.data.data;
+                    // 服务器未建立临时填充数据
+                    this.historyData=   [{ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'}];
+                    for(var i = 1;i<=21;i++){
+                        this.historyData.push({ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'});
+                    }
+                    
+                    this.total = this.historyData.length;
+                    if(this.total<=this.pageSize){
+                        this.tableData=this.historyData;
+                    }else {
+                        this.tableData=(this.historyData).slice(0,this.pageSize);
+                    }
+                }
+           ) 
         },
         reset(){
             this.queryTime='';
