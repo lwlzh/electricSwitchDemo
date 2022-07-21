@@ -80,7 +80,7 @@
 
             </el-tab-pane>
             <el-tab-pane label="设备信息">
-                <el-collapse v-model="activeNames" @change="handleChange">
+                <el-collapse>
                     <el-collapse-item title="微断1" name="1">
                         <div>这是微断1的设备信息</div>
                     </el-collapse-item>
@@ -95,7 +95,9 @@
                     </el-collapse-item>
                 </el-collapse>
             </el-tab-pane>
-            <el-tab-pane label="设备记录"></el-tab-pane>
+            <el-tab-pane label="操作记录">
+                <HistoryRecord></HistoryRecord>
+            </el-tab-pane>
             <el-tab-pane label="***"></el-tab-pane>
 
         </el-tabs>
@@ -105,6 +107,7 @@
 </template>
 
 <script>
+import HistoryRecord from './HistoryRecord.vue'
 export default {
     name: 'MainContain',
     data() {
@@ -115,6 +118,11 @@ export default {
             value2: false,
             value3: true,
         }
+    },
+    components:{
+        HistoryRecord
+    },
+    methods:{
     }
 }
 </script>
