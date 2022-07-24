@@ -14,7 +14,7 @@
                 
             >
             </el-date-picker>
-            <el-button class="btn1" @click="query">查询</el-button>
+            <el-button class="btn1" @click="queryHistory">查询</el-button>
             <el-button class="btn2" @click="reset">重置</el-button>
          </div>
          <!-- 表格 -->
@@ -56,57 +56,31 @@ export default {
             queryTime:'',
             timeFormat:"yyyy-MM-dd",
             unlinkPanels:true,
-            historyData:[],
-            tableData: [{
-            ip: '192.168.0.7',
-            address: '01',
-            operaton: '合闸',
-            operator:'user',
-            remark:'无',
-            time:'2022-07-11'
-          },
-          {
-            ip: '192.168.0.7',
-            address: '02',
-            operaton: '合闸',
-            operator:'user',
-            remark:'无',
-            time:'2022-07-11'
-          }
-          ],
-          total:0,
-          pageSize:20
+            tableData: [],
+            nowPage:1,
+            total:0,
+            pageSize:20
         }
     },
     methods:{
-        query(){
+        queryHistory(){
             if(this.queryTime===''){
                 alert("请输入日期！");
                 return;
             }
-            Net.querySwitchHistoryData('192.168.0.7','01','01',this.queryTime[0],this.queryTime[1])
+            Net.querySwitchHistoryData('192.168.0.7','01','01',this.queryTime[0],this.queryTime[1],this.nowPage,this.pageSize)
                 .then((res)=>{
                         //解析数据
-                        console.log(res.data);
-                        // this.historyData = res.data.data;
-                        // 服务器未建立临时填充数据
-                        this.historyData=   [{ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'}];
-                        for(var i = 1;i<=21;i++){
-                            this.historyData.push({ip: '192.168.0.7',address: '02',operaton: '合闸',operator:'user',remark:'无',time:'2022-07-11'});
-                        }
-                        
-                        this.total = this.historyData.length;
-                        if(this.total<=this.pageSize){
-                            this.tableData=this.historyData;
-                        }else {
-                            this.tableData=(this.historyData).slice(0,this.pageSize);
-                        }
+                        console.log(res);
+                        this.tableData = res.data.list;
+                        this.total = res.data.total;
+                        // console.log(this.tableData)
                     }
-                ) 
-                .catch((e)=>{
+                )
+                .catch(function(e){
                     console.log(e)
-                    alert('数据获取失败！')
-                })
+                }) 
+                // 记得添加检查数据是否正确的警告
         },
         reset(){
             this.queryTime='';
@@ -115,11 +89,8 @@ export default {
             this.total=0;
         },
         currentChange(e){
-            if(e*this.pageSize<=this.total){
-                this.tableData=this.historyData.slice(this.pageSize*(e-1), this.pageSize*e);
-            }else {
-                this.tableData=this.historyData.slice(this.pageSize*(e-1));
-            }
+            this.nowPage = e;
+            this.queryHistory();
         }
     }
 }

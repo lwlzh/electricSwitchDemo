@@ -12,8 +12,10 @@ export default{
             },
             method:'post',
             data:data
+        }).catch(function(e){
+            alert(e.message)
         })
-        return res;
+        return res.data;
     }
     ,
     closeSwtich(ip, port, address){//分闸
@@ -52,17 +54,18 @@ export default{
         })
         return this.getData(api,data)
     },
-    querySwitchHistoryData( ip, port, address, startTime, endTime){//查询历史接口数据
-        const api = '/switch/api/v1/querySwitchHistoryData';
+    querySwitchHistoryData( ip, port, address, startTime, endTime,pageNum,pageSize){//查询历史接口数据
+        const api = '/switch/api/v1/queryHistoryLogData?pageNum='+pageNum+'&pageSize='+pageSize;
         const data = JSON.stringify({
             "address":address,
             "ip":ip,
             "port":port,
             "startTime":startTime,
-            "endTime":endTime
+            "endTime":endTime,
+            "pageNum":pageNum,
+            "pageSize":pageSize
         })
         return this.getData(api,data);
-
     }
     
 
