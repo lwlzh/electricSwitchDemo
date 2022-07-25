@@ -12,28 +12,35 @@
                 :unlink-panels = "unlinkPanels"
                 :value-format="timeFormat"
                 :picker-options="pickOptions"
-                
             >
             </el-date-picker>
             <el-button class="btn1" @click="queryHistory">查询</el-button>
             <el-button class="btn2" @click="reset">重置</el-button>
-         </div>
+        </div>
          <!-- 表格 -->
-        <el-table :data="tableData" style="width: 100%" :border="tableBorder">
-            <!-- 表头 -->
-            <el-table-column prop="ip" label="ip" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="微端地址" width="180">
-            </el-table-column>
-            <el-table-column prop="operation" label="操作">
-            </el-table-column>
-            <el-table-column prop="operator" label="操作人员">
-            </el-table-column>
-            <el-table-column prop="remark" label="备注">
-            </el-table-column>
-             <el-table-column prop="time" label="时间">
-            </el-table-column>
-        </el-table>
+        <div class="table">
+            <el-table 
+            :data="tableData" 
+            style="width: 100%" 
+            :border="tableBorder" 
+            :header-cell-style="{textAlign:'center',background:'#eef1f6',color:'#606266',borderColor:'rgba(0,0,0,0.5)'}" 
+            :cell-style="{textAlign:'center',background:'rgba(246,246,246,0.5)',borderColor:'rgba(0,0,0,0.5)'}"
+            >
+                <!-- 表头 -->
+                <el-table-column prop="ip" label="ip" width="180">
+                </el-table-column>
+                <el-table-column prop="address" label="微端地址" width="180">
+                </el-table-column>
+                <el-table-column prop="operation" label="操作">
+                </el-table-column>
+                <el-table-column prop="operator" label="操作人员">
+                </el-table-column>
+                <el-table-column prop="remark" label="备注">
+                </el-table-column>
+                <el-table-column prop="time" label="时间">
+                </el-table-column>
+            </el-table>
+        </div>
         <!-- 页码 -->
         <el-pagination
             background
@@ -133,6 +140,20 @@ export default {
 </script>
 
 <style scoped>
-    .demonstration {margin-right: 10px;}
-    .btn1 {margin-left: 20px;}
+    .watch .demonstration {margin-right: 10px;}
+    .watch .btn1 {margin-left: 20px;}
+    .watch {
+        height:80px;
+        text-align: center;
+        line-height: 80px;
+        
+    }
+    .table {
+        margin-top: 20px;
+    }
+    .table .el-table {
+        border: solid 1px black;
+    }
+    
+    
 </style>

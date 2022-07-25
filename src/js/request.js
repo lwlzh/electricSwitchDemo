@@ -27,7 +27,7 @@ export default{
         });
         return this.getData(api,data);
     },
-     openSwitch(ip, port, address){//合闸
+    openSwitch(ip, port, address){//合闸
         const api = '/switch/api/v1/openSwitch';
         const data = JSON.stringify({
             "address":address,
