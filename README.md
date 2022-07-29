@@ -1,4 +1,4 @@
-# liz
+# electricSwitchDemo
 
 ## Project setup
 ```
