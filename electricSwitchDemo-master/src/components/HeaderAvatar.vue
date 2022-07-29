@@ -1,19 +1,17 @@
 <template>
     <div>
-        <el-row class="head">
-          
+        <el-row class="head"> 
             <el-col :span="24">
                 <el-col :span="1" >
                     <div class="circle">
                         <div class="block">
                            <el-avatar class="avatar" size="medium" >
                              <i class="el-icon-s-custom"></i>
-                           </el-avatar>
-                           
+                           </el-avatar>    
                         </div>
                     </div>
                </el-col>
-                <el-col :span="23"> <div class="title">物联网管理系统</div> </el-col>
+                <el-col :span="23"> <div class="title">控制平台</div> </el-col>
             </el-col>
         </el-row>
     </div>
